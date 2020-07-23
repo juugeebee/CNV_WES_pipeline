@@ -47,7 +47,7 @@ del frame['BF']
 
 frame.rename(columns={'reads.ratio':'cnv_ratio'}, inplace=True)
 
-frame.loc[frame.cnv_ratio==0, 'cnv_ratio'] = 0.0000000000000001
+frame.loc[frame.cnv_ratio==0, 'cnv_ratio'] = 0.000001
 frame['log2copy_ratio'] = numpy.log2(frame['cnv_ratio'])
 
 frame['CN'] = frame['cnv_ratio'].astype('int')
