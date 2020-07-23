@@ -22,7 +22,7 @@ conda deactivate
 # generation des listes hommes et femmes
 conda activate results_cnv
 
-python ~/CNV_WES_pipeline/female_male_lists.py
+python3 ~/CNV_WES_pipeline/female_male_lists.py
 
 conda deactivate
 
