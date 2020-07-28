@@ -69,6 +69,8 @@ python ~/CNV_WES_pipeline/cnv_results.py
 python ~/CNV_WES_pipeline/cnv_interval_objet_sample.py
 python ~/CNV_WES_pipeline/cnv_interval_objet_run.py
 
+python ~/CNV_WES_pipeline/frequences.py
+
 conda deactivate
 
 # annotations

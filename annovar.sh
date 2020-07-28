@@ -15,7 +15,7 @@ mkdir -p annovar_output
 #perl annotate_variation.pl -downdb -buildver hg38 -webfrom annovar refGene humandb
 
 ## Retirer les noms de colonnes au fichier interval_results.txt > /annovar_output/ex1.avinput
-sed '1d' interval_run_results.txt > ex1.avinput
+sed '1d' cnv_with_frequences.txt > ex1.avinput
 
 ## Remplacer XF par X et XM par X
 sed -i -e "s/XF/X/g" ex1.avinput
