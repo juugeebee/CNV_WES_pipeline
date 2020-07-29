@@ -22,7 +22,7 @@ df['TF'] = (df['effect'] == df_1['effect'])\
                                     & (df['end'] > df_1['start']) \
                                     & (df['sample'] != df_1['sample'])
 
-df['frequences_in_run'] = 0
+df['frequences_in_run'] = 1
 
 tf_list = df['TF'].tolist()
 freq_list = df['frequences_in_run'].tolist()
