@@ -8,14 +8,14 @@ print("\nTransmission program openning.\n")
 def overlap (df, pedigree):
 
     trans = pandas.DataFrame(columns=['start', 'end', 'sample', \
-        'related1', 'related2', 'log2_sample', 'log2_related1', 'log2_related2'])
+        'related1', 'related2', 'in_sample', 'in_related1', 'in_related2'])
 
     trans['start'] = df['start']
     trans['end'] = df['end']
     trans['sample'] = df['sample']
     trans['contig'] = df['contig']
     trans['effect'] = df['effect']
-    trans['log2_sample'] = True
+    trans['in_sample'] = True
 
     related1 = []
     related2 = []
@@ -45,25 +45,25 @@ def overlap (df, pedigree):
     trans['start'].astype('str').astype('int')
     trans['end'].astype('str').astype('int')
 
-    trans.sort_values(by=['effect','contig', 'start'], inplace=True)
+    trans.sort_values(by=['effect','contig', 'start', 'sample'], inplace=True)
     trans.reset_index(inplace=True)
     del trans['index']
 
     df_1 = trans.shift(periods=1)
 
-    trans['log2_related1'] = (trans['effect'] == df_1['effect'])\
+    trans['in_related1'] = (trans['effect'] == df_1['effect'])\
                                     & (trans['contig'] == df_1['contig'])\
-                                    & (trans['start'] < df_1['end']) \
-                                    & (trans['end'] > df_1['start']) \
+                                    & (trans['start'] <= df_1['end']) \
+                                    & (trans['end'] >= df_1['start']) \
                                     & (trans['related1'] == df_1['sample'])
 
-    trans['log2_related2'] = (trans['effect'] == df_1['effect'])\
+    trans['in_related2'] = (trans['effect'] == df_1['effect'])\
                                     & (trans['contig'] == df_1['contig'])\
-                                    & (trans['start'] < df_1['end']) \
-                                    & (trans['end'] > df_1['start']) \
+                                    & (trans['start'] <= df_1['end']) \
+                                    & (trans['end'] >= df_1['start']) \
                                     & (trans['related2'] == df_1['sample'])
 
-    trans.query('log2_related1==True and log2_related2==True', inplace=True)
+    trans.query('in_related1==True and in_related2==True', inplace=True)
 
     return (trans)
 
