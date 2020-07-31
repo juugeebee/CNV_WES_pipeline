@@ -228,8 +228,8 @@ if os.path.isfile('pedigree.txt'):
     
     final_ed.to_csv('transmission/ed_transmission.csv', index=False)  
     scores_ed = final_ed['score'].tolist()
-    denovo_ed = scores_ex.count(1)
-    print('EXOMEDEPTH: Nombre de CNV de novo = {}'.format(denovo_ex))                                                                                           
+    denovo_ed = scores_ed.count(1)
+    print('EXOMEDEPTH: Nombre de CNV de novo = {}'.format(denovo_ed))                                                                                           
     print("ed_transmission.csv generated.\n")
     
 else:
