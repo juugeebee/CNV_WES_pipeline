@@ -95,6 +95,13 @@ def final (concat):
     final['in_sample'] = concat['in_sample']
     final['in_related1'] = concat['in_related1']
     final['in_related2'] = concat['in_related2']
+    final['score'] = 1
+    final.loc[((final.in_related1==True) \
+        & (final.in_related2==True)), 'score'] = 3
+    final.loc[((final.in_related1==False) \
+        & (final.in_related2==True)), 'score'] = 2
+    final.loc[((final.in_related1==True) \
+        & (final.in_related2==False)), 'score'] = 2
 
     return final
 
@@ -148,6 +155,8 @@ if os.path.isfile('pedigree.txt'):
     family_cnvkit = family(df_cnvkit, pedigree)
     ol_cnvkit = overlap(family_cnvkit, df_cnvkit)
     final_cnvkit = final(ol_cnvkit)
+    
+    
 
     if os.path.isfile('./transmission/cnvkit_transmission.csv'):
         os.remove('./transmission/cnvkit_transmission.csv')
