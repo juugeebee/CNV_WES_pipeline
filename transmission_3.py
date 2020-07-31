@@ -160,9 +160,12 @@ if os.path.isfile('pedigree.txt'):
 
     if os.path.isfile('./transmission/cnvkit_transmission.csv'):
         os.remove('./transmission/cnvkit_transmission.csv')
-        print('Previous cnvkit_transmission.csv file removed.')
+        print('\nPrevious cnvkit_transmission.csv file removed.')
     
-    final_cnvkit.to_csv('transmission/cnvkit_transmission.csv', index=False)                                                                                           
+    final_cnvkit.to_csv('transmission/cnvkit_transmission.csv', index=False) 
+    scores_cnvkit = final_cnvkit['score'].tolist()
+    denovo_cnvkit = scores_cnvkit.count(1)
+    print('CNVKIT: Nombre de CNV de novo = {}'.format(denovo_cnvkit))                                                                                          
     print("cnvkit_transmission.csv generated.\n")
 
 
@@ -175,7 +178,10 @@ if os.path.isfile('pedigree.txt'):
         os.remove('./transmission/gatk_transmission.csv')
         print('Previous gatk_transmission.csv file removed.')
     
-    final_gatk.to_csv('transmission/gatk_transmission.csv', index=False)                                                                                           
+    final_gatk.to_csv('transmission/gatk_transmission.csv', index=False)  
+    scores_gatk = final_gatk['score'].tolist()
+    denovo_gatk = scores_gatk.count(1)
+    print('GATK: Nombre de CNV de novo = {}'.format(denovo_gatk))                                                                                         
     print("gatk_transmission.csv generated.\n")
 
 
@@ -188,7 +194,10 @@ if os.path.isfile('pedigree.txt'):
         os.remove('./transmission/cn_transmission.csv')
         print('Previous cn_transmission.csv file removed.')
     
-    final_cn.to_csv('transmission/cn_transmission.csv', index=False)                                                                                           
+    final_cn.to_csv('transmission/cn_transmission.csv', index=False) 
+    scores_cn = final_cn['score'].tolist()
+    denovo_cn = scores_cn.count(1)
+    print('CNV.MOPS: Nombre de CNV de novo = {}'.format(denovo_cn))                                                                                           
     print("cn_transmission.csv generated.\n")
 
 
@@ -201,7 +210,10 @@ if os.path.isfile('pedigree.txt'):
         os.remove('./transmission/ex_transmission.csv')
         print('Previous ex_transmission.csv file removed.')
     
-    final_ex.to_csv('transmission/ex_transmission.csv', index=False)                                                                                           
+    final_ex.to_csv('transmission/ex_transmission.csv', index=False)
+    scores_ex = final_ex['score'].tolist()
+    denovo_ex = scores_ex.count(1)
+    print('EXCAVATOR2: Nombre de CNV de novo = {}'.format(denovo_ex))                                                                                            
     print("ex_transmission.csv generated.\n")
 
 
@@ -214,7 +226,10 @@ if os.path.isfile('pedigree.txt'):
         os.remove('./transmission/ed_transmission.csv')
         print('Previous ed_transmission.csv file removed.')
     
-    final_ed.to_csv('transmission/ed_transmission.csv', index=False)                                                                                           
+    final_ed.to_csv('transmission/ed_transmission.csv', index=False)  
+    scores_ed = final_ed['score'].tolist()
+    denovo_ed = scores_ex.count(1)
+    print('EXOMEDEPTH: Nombre de CNV de novo = {}'.format(denovo_ex))                                                                                           
     print("ed_transmission.csv generated.\n")
     
 else:
