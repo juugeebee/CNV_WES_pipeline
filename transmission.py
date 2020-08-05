@@ -20,15 +20,6 @@ def family (df, pedigree):
                 related1.append(row_p['Mother'])
                 related2.append(row_p['Father'])
 
-            if row['sample'] == row_p['Mother'] :
-
-                related1.append(row_p['Index'])
-                related2.append(row_p['Father'])
-
-            if row['sample'] == row_p['Father'] :
-
-                related1.append(row_p['Mother'])
-                related2.append(row_p['Index'])
 
     df['related1'] = pandas.Series(related1)
     df['related2'] = pandas.Series(related2)
@@ -42,9 +33,7 @@ def family (df, pedigree):
         mother = row_p['Mother']
         father = row_p['Father']
 
-        switch = df[(df['sample'] == index) \
-        | (df['sample'] == mother) \
-        |(df['sample'] == father) ]
+        switch = df[(df['sample'] == index)]
         
         lo.append(switch)
     
@@ -91,6 +80,7 @@ def final (concat):
     final['start'] = concat['start']
     final['end'] = concat['end']
     final['contig'] = concat['contig']
+    final['sample'] = concat['sample']
     final['effect'] = concat['effect']
     final['in_sample'] = concat['in_sample']
     final['in_related1'] = concat['in_related1']
@@ -102,6 +92,10 @@ def final (concat):
         & (final.in_related2==True)), 'score'] = 2
     final.loc[((final.in_related1==True) \
         & (final.in_related2==False)), 'score'] = 2
+
+    cols = ['sample', 'contig', 'start', 'end', 'effect', \
+    'in_sample', 'in_related1', 'in_related2', 'score']
+    final = final[cols]
 
     return final
 
@@ -151,40 +145,6 @@ if os.path.isfile('pedigree.txt'):
     if not os.path.exists('./transmission'):
         os.makedirs('./transmission')
 
-    ### CNVKIT    
-    family_cnvkit = family(df_cnvkit, pedigree)
-    ol_cnvkit = overlap(family_cnvkit, df_cnvkit)
-    final_cnvkit = final(ol_cnvkit)
-    
-    
-
-    if os.path.isfile('./transmission/cnvkit_transmission.csv'):
-        os.remove('./transmission/cnvkit_transmission.csv')
-        print('\nPrevious cnvkit_transmission.csv file removed.')
-    
-    final_cnvkit.to_csv('transmission/cnvkit_transmission.csv', index=False) 
-    scores_cnvkit = final_cnvkit['score'].tolist()
-    denovo_cnvkit = scores_cnvkit.count(1)
-    print('CNVKIT: Nombre de CNV de novo = {}'.format(denovo_cnvkit))                                                                                          
-    print("cnvkit_transmission.csv generated.\n")
-
-
-    ### GATK
-    family_gatk = family(df_gatk, pedigree)
-    ol_gatk = overlap(family_gatk, df_gatk)
-    final_gatk = final(ol_gatk)
-
-    if os.path.isfile('./transmission/gatk_transmission.csv'):
-        os.remove('./transmission/gatk_transmission.csv')
-        print('Previous gatk_transmission.csv file removed.')
-    
-    final_gatk.to_csv('transmission/gatk_transmission.csv', index=False)  
-    scores_gatk = final_gatk['score'].tolist()
-    denovo_gatk = scores_gatk.count(1)
-    print('GATK: Nombre de CNV de novo = {}'.format(denovo_gatk))                                                                                         
-    print("gatk_transmission.csv generated.\n")
-
-
     ### cn.mops
     family_cn = family(df_cnmops, pedigree)
     ol_cn = overlap(family_cn, df_cnmops)
@@ -197,9 +157,38 @@ if os.path.isfile('pedigree.txt'):
     final_cn.to_csv('transmission/cn_transmission.csv', index=False) 
     scores_cn = final_cn['score'].tolist()
     denovo_cn = scores_cn.count(1)
-    print('CNV.MOPS: Nombre de CNV de novo = {}'.format(denovo_cn))                                                                                           
+    print('CN.MOPS: Nombre de CNV de novo = {}'.format(denovo_cn))                                                                                           
     print("cn_transmission.csv generated.\n")
 
+    ### CNVKIT    
+    family_cnvkit = family(df_cnvkit, pedigree)
+    ol_cnvkit = overlap(family_cnvkit, df_cnvkit)
+    final_cnvkit = final(ol_cnvkit)
+
+    if os.path.isfile('./transmission/cnvkit_transmission.csv'):
+        os.remove('./transmission/cnvkit_transmission.csv')
+        print('\nPrevious cnvkit_transmission.csv file removed.')
+    
+    final_cnvkit.to_csv('transmission/cnvkit_transmission.csv', index=False) 
+    scores_cnvkit = final_cnvkit['score'].tolist()
+    denovo_cnvkit = scores_cnvkit.count(1)
+    print('CNVKIT: Nombre de CNV de novo = {}'.format(denovo_cnvkit))                                                                                          
+    print("cnvkit_transmission.csv generated.\n")
+
+    ### exomedepth
+    family_ed = family(df_exomedepth, pedigree)
+    ol_ed = overlap(family_ed, df_exomedepth)
+    final_ed = final(ol_ed)
+
+    if os.path.isfile('./transmission/ed_transmission.csv'):
+        os.remove('./transmission/ed_transmission.csv')
+        print('Previous ed_transmission.csv file removed.')
+    
+    final_ed.to_csv('transmission/ed_transmission.csv', index=False)  
+    scores_ed = final_ed['score'].tolist()
+    denovo_ed = scores_ed.count(1)
+    print('EXOMEDEPTH: Nombre de CNV de novo = {}'.format(denovo_ed))                                                                                           
+    print("ed_transmission.csv generated.\n")
 
     ### excavator2
     family_ex = family(df_excavator2, pedigree)
@@ -216,21 +205,21 @@ if os.path.isfile('pedigree.txt'):
     print('EXCAVATOR2: Nombre de CNV de novo = {}'.format(denovo_ex))                                                                                            
     print("ex_transmission.csv generated.\n")
 
+    ### GATK
+    family_gatk = family(df_gatk, pedigree)
+    ol_gatk = overlap(family_gatk, df_gatk)
+    final_gatk = final(ol_gatk)
 
-    ### exomedepth
-    family_ed = family(df_exomedepth, pedigree)
-    ol_ed = overlap(family_ed, df_exomedepth)
-    final_ed = final(ol_ed)
-
-    if os.path.isfile('./transmission/ed_transmission.csv'):
-        os.remove('./transmission/ed_transmission.csv')
-        print('Previous ed_transmission.csv file removed.')
+    if os.path.isfile('./transmission/gatk_transmission.csv'):
+        os.remove('./transmission/gatk_transmission.csv')
+        print('Previous gatk_transmission.csv file removed.')
     
-    final_ed.to_csv('transmission/ed_transmission.csv', index=False)  
-    scores_ed = final_ed['score'].tolist()
-    denovo_ed = scores_ed.count(1)
-    print('EXOMEDEPTH: Nombre de CNV de novo = {}'.format(denovo_ed))                                                                                           
-    print("ed_transmission.csv generated.\n")
+    final_gatk.to_csv('transmission/gatk_transmission.csv', index=False)  
+    scores_gatk = final_gatk['score'].tolist()
+    denovo_gatk = scores_gatk.count(1)
+    print('GATK: Nombre de CNV de novo = {}'.format(denovo_gatk))                                                                                         
+    print("gatk_transmission.csv generated.\n")
+
     
 else:
     print('Le fichier pedigree.txt est absent. Calcul impossible.\n')
