@@ -91,13 +91,15 @@ Functions
 def chevauchement_sample(sorted_sample_cnv):
     
     sample_cnv_list = []
+
+    prev_cnv = sorted_sample_cnv[0]
+    curr_cnv = sorted_sample_cnv[1]
     
-    for i in range(1,len(sorted_sample_cnv)):
-        prev_cnv = sorted_sample_cnv[i-1]
-        curr_cnv = sorted_sample_cnv[i]
+    for i in range(0,len(sorted_sample_cnv)-1):
 
         if (curr_cnv.contig == prev_cnv.contig)\
             and (curr_cnv.effect == prev_cnv.effect)\
+            and (curr_cnv.sample == prev_cnv.sample)\
             and (int(curr_cnv.start) < int(prev_cnv.end)) \
             and (int(curr_cnv.end) > int(prev_cnv.start)):
 
@@ -117,10 +119,13 @@ def chevauchement_sample(sorted_sample_cnv):
             targets = "/".join([str(prev_cnv.targets), str(curr_cnv.targets)])
 
             sample_cnv = Cnv(sample, sex, contig, start, end, size, log2copy_ratio, copynumber, effect,  cnv_tool, targets)
-            sample_cnv_list.append(sample_cnv)
+            prev_cnv = sample_cnv
+            curr_cnv = sorted_sample_cnv[i+1]
                     
         else:
             sample_cnv_list.append(prev_cnv)
+            prev_cnv = sorted_sample_cnv[i]
+            curr_cnv = sorted_sample_cnv[i+1]
 
     return sample_cnv_list
 

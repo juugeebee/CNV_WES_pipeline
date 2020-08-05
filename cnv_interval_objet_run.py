@@ -83,9 +83,10 @@ def chevauchement_run(sorted_sample_cnv):
 
     run_cnv_list = []
 
-    for i in range(1, len(sorted_sample_cnv)):
-        prev_cnv = sorted_sample_cnv[i-1]
-        curr_cnv = sorted_sample_cnv[i]
+    prev_cnv = sorted_sample_cnv[0]
+    curr_cnv = sorted_sample_cnv[1]
+
+    for i in range(0, len(sorted_sample_cnv)-1):
 
         if (curr_cnv.contig == prev_cnv.contig) \
             and (int(curr_cnv.effect == prev_cnv.effect)) \
@@ -114,11 +115,18 @@ def chevauchement_run(sorted_sample_cnv):
                 targets_number = "/".join([str(prev_cnv.targets), str(curr_cnv.targets)])
 
                 run_cnv = Cnv(sample, contig, start, end, sex, size, effect, log2copy_ratio, copynumber, cnv_tool, targets_number)
+                prev_cnv = run_cnv
+                curr_cnv = sorted_sample_cnv[i+1]
 
-                run_cnv_list.append(run_cnv)
+            else:
+                run_cnv_list.append(prev_cnv)
+                prev_cnv = sorted_sample_cnv[i]
+                curr_cnv = sorted_sample_cnv[i+1]
 
         else:
-            run_cnv_list.append(prev_cnv)        
+            run_cnv_list.append(prev_cnv)
+            prev_cnv = sorted_sample_cnv[i]
+            curr_cnv = sorted_sample_cnv[i+1]    
 
     return run_cnv_list
     
@@ -130,7 +138,6 @@ print("\nRun intervals checking program openning.\n")
 print('-START Generation des cnv...')
 cnv = Cnv.read_results('interval_sample_results.txt')
 cnv_count = len(cnv)
-print(cnv[0])
 print('-END Generation des cnv: {} cnv generes'.format(cnv_count))
 
 run_cnv_list = chevauchement_run(cnv)
