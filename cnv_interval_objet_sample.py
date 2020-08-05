@@ -98,7 +98,8 @@ def chevauchement_sample(sorted_sample_cnv):
 
         if (curr_cnv.contig == prev_cnv.contig)\
             and (curr_cnv.effect == prev_cnv.effect)\
-            and (int(curr_cnv.start) < int(prev_cnv.end)) and (int(curr_cnv.end) > int(prev_cnv.start)):
+            and (int(curr_cnv.start) < int(prev_cnv.end)) \
+            and (int(curr_cnv.end) > int(prev_cnv.start)):
 
             min_start = min(int(prev_cnv.start), int(curr_cnv.start))
             max_end = max(int(prev_cnv.end), int(curr_cnv.end)) 
