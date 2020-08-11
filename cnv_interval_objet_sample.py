@@ -95,13 +95,13 @@ def chevauchement_sample(sorted_sample_cnv):
     prev_cnv = sorted_sample_cnv[0]
     curr_cnv = sorted_sample_cnv[1]
     
-    for i in range(0,len(sorted_sample_cnv)-1):
+    for i in range(1,len(sorted_sample_cnv)-1):
 
         if (curr_cnv.contig == prev_cnv.contig)\
             and (curr_cnv.effect == prev_cnv.effect)\
             and (curr_cnv.sample == prev_cnv.sample)\
-            and (int(curr_cnv.start) < int(prev_cnv.end)) \
-            and (int(curr_cnv.end) > int(prev_cnv.start)):
+            and (int(curr_cnv.start) <= int(prev_cnv.end)) \
+            and (int(curr_cnv.end) >= int(prev_cnv.start)):
 
             min_start = min(int(prev_cnv.start), int(curr_cnv.start))
             max_end = max(int(prev_cnv.end), int(curr_cnv.end)) 

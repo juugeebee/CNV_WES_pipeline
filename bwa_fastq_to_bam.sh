@@ -9,13 +9,13 @@ echo ""
 echo "bwa_fastq_to_bam.sh start"
 echo ""
 
-rm *.bam
+#rm *.bam
 
 ## MAPPING BWA SEQUENTIAL ###
-for R1 in *_R1_*.fastq.gz; 
+for R1 in *.R1.fastq.gz; 
 
     do 
-    R2=${R1/_R1_/_R2_}; 
+    R2=${R1/.R1/.R2}; 
 
     SAMPLE=${R1%%_*}; 
 
@@ -32,7 +32,7 @@ for R1 in *_R1_*.fastq.gz;
 
     eval $MAPPING_CMD;
 
-done;
+ done;
 
 ### MARK DUPLICATES
 for i in *.bam; 

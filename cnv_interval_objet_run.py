@@ -80,53 +80,94 @@ Functions
 """
 
 def chevauchement_run(sorted_sample_cnv):
-
+    
     run_cnv_list = []
 
     prev_cnv = sorted_sample_cnv[0]
     curr_cnv = sorted_sample_cnv[1]
 
+    sample_list = []
+    contig_list = []
+    start_list = []
+    end_list = []
+    sex_list = []
+    size_list = []
+    effect_list = []
+    log2copy_list = []
+    copynumber_list = []
+    tool_list = []
+    targets_list = []
+
     for i in range(0, len(sorted_sample_cnv)-1):
-
-        if (curr_cnv.contig == prev_cnv.contig) \
-            and (int(curr_cnv.effect == prev_cnv.effect)) \
-            and (int(curr_cnv.start) < int(prev_cnv.end)) \
-            and (int(curr_cnv.end) > int(prev_cnv.start)):
-
+        
+        if (curr_cnv.effect == prev_cnv.effect) \
+        and (curr_cnv.contig == prev_cnv.contig) \
+        and (int(curr_cnv.start) <= int(prev_cnv.end)) \
+        and (int(curr_cnv.end) >= int(prev_cnv.start)):
+            
             max_start = max(int(prev_cnv.start), int(curr_cnv.start))
             min_end = min(int(prev_cnv.end), int(curr_cnv.end)) 
-
+            print('\nmax start = {}'.format(max_start))
+            print('min end = {}'.format(min_end))
+            
             common_part = min_end - max_start
+            print('common part = {}'.format(common_part))
+            
             overlap_on_prev_cnv = (float(common_part) / float(prev_cnv.size))
             overlap_on_curr_cnv = (float(common_part) / float(curr_cnv.size))
-			
+	    print('overlap on prev cnv = {}'.format(overlap_on_prev_cnv))
+            print('overlap on curr cnv = {}'.format(overlap_on_curr_cnv))
+            
             if (overlap_on_prev_cnv > 0.8) and (overlap_on_curr_cnv > 0.8):
-                    
-                contig = prev_cnv.contig
-                start = max_start
-                end = min_end
-                size = min_end - max_start
-                sample = curr_cnv.sample
-                sex =  curr_cnv.sex
-                effect = curr_cnv.effect
-                cnv_tool = "/".join([prev_cnv.cnv_tool, curr_cnv.cnv_tool])
-                copynumber = "/".join([str(prev_cnv.copynumber), str(curr_cnv.copynumber)])
-                log2copy_ratio = "/".join([str(prev_cnv.log2copy_ratio), str(curr_cnv.log2copy_ratio)])
-                targets_number = "/".join([str(prev_cnv.targets), str(curr_cnv.targets)])
 
-                run_cnv = Cnv(sample, contig, start, end, sex, size, effect, log2copy_ratio, copynumber, cnv_tool, targets_number)
-                prev_cnv = run_cnv
-                curr_cnv = sorted_sample_cnv[i+1]
-
-            else:
-                run_cnv_list.append(prev_cnv)
+                sample_list.append(prev_cnv.sample)
+                contig_list.append(prev_cnv.contig)
+                start_list.append(max_start)
+                end_list.append(min_end)
+                sex_list.append(prev_cnv.sex)
+                size_list.append(min_end - max_start)
+                effect_list.append(prev_cnv.effect)
+                log2copy_list.append(prev_cnv.log2copy_ratio)
+                copynumber_list.append(prev_cnv.copynumber)
+                tool_list.append(prev_cnv.cnv_tool)
+                targets_list.append(prev_cnv.targets)
+    
                 prev_cnv = sorted_sample_cnv[i]
                 curr_cnv = sorted_sample_cnv[i+1]
+                print('... fusion des intervalles ... sample = {}'.format(prev_cnv.sample))
 
+            else:
+                run_cnv_list.append(prev_cnv)    
+                prev_cnv = sorted_sample_cnv[i]
+                curr_cnv = sorted_sample_cnv[i+1]
+                print('\nchevauchement sans overlap ligne = {}'.format(i))
+        
         else:
             run_cnv_list.append(prev_cnv)
             prev_cnv = sorted_sample_cnv[i]
-            curr_cnv = sorted_sample_cnv[i+1]    
+            curr_cnv = sorted_sample_cnv[i+1]
+            
+            print('\nligne solo = {}'.format(i))
+            
+            for j in range(0, len(sample_list)):
+                
+                run_cnv = Cnv(sample_list[j], contig_list[j], start_list[j], end_list[j], \
+                sex_list[j], size_list[j], effect_list[j], log2copy_list[j], copynumber_list[j], \
+                tool_list[j], targets_list[j])
+
+                run_cnv_list.append(run_cnv)
+
+            sample_list = []
+            contig_list = []
+            start_list = []
+            end_list = []
+            sex_list = []
+            size_list = []
+            effect_list = []
+            log2copy_list = []
+            copynumber_list = []
+            tool_list = []
+            targets_list = []
 
     return run_cnv_list
     
@@ -142,11 +183,9 @@ print('-END Generation des cnv: {} cnv generes'.format(cnv_count))
 
 run_cnv_list = chevauchement_run(cnv)
 
-print('{} interval(s) found.'.format(len(run_cnv_list) - len(cnv)))
-
 if os.path.isfile('interval_run_results.txt'):
     os.remove('interval_run_results.txt')
-    print('Previous results file removed.')
+    print('\nPrevious results file removed.')
 
 with open('interval_run_results.txt', 'w') as results_file:
     

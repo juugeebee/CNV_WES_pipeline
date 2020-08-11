@@ -18,8 +18,8 @@ df_curr = df_prev.shift(periods=1)
 
 df_prev['TF'] = (df_prev['effect'] == df_curr['effect'])\
         & (df_prev['contig'] == df_curr['contig'])\
-        & (df_curr['start'] < df_prev['end']) \
-        & (df_curr['end'] > df_prev['start']) \
+        & (df_curr['start'] <= df_prev['end']) \
+        & (df_curr['end'] >= df_prev['start']) \
         & (df_prev['sample'] != df_curr['sample'])
 
 df_prev['frequences_in_run'] = 1
