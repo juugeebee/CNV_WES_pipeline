@@ -44,7 +44,6 @@ def overlap (families, df):
 
     family_list = []
   
-
     for family in families: 
 
         family.sort_values(by=['effect','contig', 'start', 'sample'], inplace=True)
@@ -106,6 +105,7 @@ print("\nTransmission program openning.\n")
 
 path = "."
 dirs = os.listdir(path)
+
 # Creation df final
 
 if os.path.isfile('pedigree.txt'):
@@ -114,6 +114,33 @@ if os.path.isfile('pedigree.txt'):
     del pedigree['Comment']
     del pedigree['Sex']
     del pedigree['Fam']
+
+    hm_path = './homemade_results.csv'
+    if os.path.isfile(hm_path):
+        df_hm = pandas.read_csv(hm_path, sep='\t', index_col=None)
+        df_hm.rename(columns = {'chrom': 'contig', 'cnv_type': 'effect', \
+        'log2ratio': 'log2copy_ratio'}, inplace=True)
+        df_hm.loc[df_hm.effect=='dup', 'effect'] = "duplication"
+        df_hm.loc[df_hm.effect=='del', 'effect'] = "deletion"
+        df_hm = df_hm[df_hm.algo == 'WCC']
+        del df_hm['algo']
+        del df_hm['size']
+        del df_hm['function']
+        del df_hm['inGene']
+        del df_hm['nb_genes']
+        del df_hm['genes']
+        del df_hm['gene_details']
+        del df_hm['freq_run']
+        del df_hm['clinvar']
+        del df_hm['nb_DGV_hits']
+        del df_hm['DGV_details']
+        df_hm['start'] = df_hm['start'].astype('str').astype('int')
+        df_hm['end'] = df_hm['end'].astype('str').astype('int')
+        df_hm['effect'] = df_hm['effect'].astype('str')
+        df_hm['contig'] = df_hm['contig'].astype('str')
+        df_hm['sample'] = df_hm['sample'].astype('str')
+        cols = ['sample', 'contig', 'start', 'end', 'log2copy_ratio', 'effect']
+        df_hm = df_hm[cols]        
 
     for directory in dirs:
     
@@ -145,14 +172,14 @@ if os.path.isfile('pedigree.txt'):
     if not os.path.exists('./transmission'):
         os.makedirs('./transmission')
 
-    ### cn.mops
+### cn.mops
     family_cn = family(df_cnmops, pedigree)
     ol_cn = overlap(family_cn, df_cnmops)
     final_cn = final(ol_cn)
 
     if os.path.isfile('./transmission/cn_transmission.csv'):
         os.remove('./transmission/cn_transmission.csv')
-        print('Previous cn_transmission.csv file removed.')
+        print('\nPrevious cn_transmission.csv file removed.')
     
     final_cn.to_csv('transmission/cn_transmission.csv', index=False) 
     scores_cn = final_cn['score'].tolist()
@@ -160,14 +187,14 @@ if os.path.isfile('pedigree.txt'):
     print('CN.MOPS: Nombre de CNV de novo = {}'.format(denovo_cn))                                                                                           
     print("cn_transmission.csv generated.\n")
 
-    ### CNVKIT    
+### CNVKIT    
     family_cnvkit = family(df_cnvkit, pedigree)
     ol_cnvkit = overlap(family_cnvkit, df_cnvkit)
     final_cnvkit = final(ol_cnvkit)
 
     if os.path.isfile('./transmission/cnvkit_transmission.csv'):
         os.remove('./transmission/cnvkit_transmission.csv')
-        print('\nPrevious cnvkit_transmission.csv file removed.')
+        print('Previous cnvkit_transmission.csv file removed.')
     
     final_cnvkit.to_csv('transmission/cnvkit_transmission.csv', index=False) 
     scores_cnvkit = final_cnvkit['score'].tolist()
@@ -175,7 +202,7 @@ if os.path.isfile('pedigree.txt'):
     print('CNVKIT: Nombre de CNV de novo = {}'.format(denovo_cnvkit))                                                                                          
     print("cnvkit_transmission.csv generated.\n")
 
-    ### exomedepth
+### exomedepth
     family_ed = family(df_exomedepth, pedigree)
     ol_ed = overlap(family_ed, df_exomedepth)
     final_ed = final(ol_ed)
@@ -190,7 +217,7 @@ if os.path.isfile('pedigree.txt'):
     print('EXOMEDEPTH: Nombre de CNV de novo = {}'.format(denovo_ed))                                                                                           
     print("ed_transmission.csv generated.\n")
 
-    ### excavator2
+### excavator2
     family_ex = family(df_excavator2, pedigree)
     ol_ex = overlap(family_ex, df_excavator2)
     final_ex = final(ol_ex)
@@ -205,7 +232,7 @@ if os.path.isfile('pedigree.txt'):
     print('EXCAVATOR2: Nombre de CNV de novo = {}'.format(denovo_ex))                                                                                            
     print("ex_transmission.csv generated.\n")
 
-    ### GATK
+### GATK
     family_gatk = family(df_gatk, pedigree)
     ol_gatk = overlap(family_gatk, df_gatk)
     final_gatk = final(ol_gatk)
@@ -220,6 +247,21 @@ if os.path.isfile('pedigree.txt'):
     print('GATK: Nombre de CNV de novo = {}'.format(denovo_gatk))                                                                                         
     print("gatk_transmission.csv generated.\n")
 
+
+### HomeMade
+    family_hm = family(df_hm, pedigree)
+    ol_hm = overlap(family_hm, df_hm)
+    final_hm = final(ol_hm)
+
+    if os.path.isfile('./transmission/hm_transmission.csv'):
+        os.remove('./transmission/hm_transmission.csv')
+        print('Previous hm_transmission.csv file removed.')
+    
+    final_hm.to_csv('transmission/hm_transmission.csv', index=False)  
+    scores_hm = final_hm['score'].tolist()
+    denovo_hm = scores_hm.count(1)
+    print('HomeMade: Nombre de CNV de novo = {}'.format(denovo_hm))                                                                                         
+    print("hm_transmission.csv generated.\n")
     
 else:
     print('Le fichier pedigree.txt est absent. Calcul impossible.\n')
