@@ -175,6 +175,8 @@ if os.path.isfile('pedigree.txt'):
 ### cn.mops
     family_cn = family(df_cnmops, pedigree)
     ol_cn = overlap(family_cn, df_cnmops)
+    ol_cn.drop_duplicates(subset=['start', 'end'],\
+        keep='first', inplace=True)
     final_cn = final(ol_cn)
 
     if os.path.isfile('./transmission/cn_transmission.csv'):
@@ -190,6 +192,8 @@ if os.path.isfile('pedigree.txt'):
 ### CNVKIT    
     family_cnvkit = family(df_cnvkit, pedigree)
     ol_cnvkit = overlap(family_cnvkit, df_cnvkit)
+    ol_cnvkit.drop_duplicates(subset=['start', 'end'],\
+        keep='first', inplace=True)
     final_cnvkit = final(ol_cnvkit)
 
     if os.path.isfile('./transmission/cnvkit_transmission.csv'):
@@ -205,6 +209,8 @@ if os.path.isfile('pedigree.txt'):
 ### exomedepth
     family_ed = family(df_exomedepth, pedigree)
     ol_ed = overlap(family_ed, df_exomedepth)
+    ol_ed.drop_duplicates(subset=['start', 'end'],\
+        keep='first', inplace=True)
     final_ed = final(ol_ed)
 
     if os.path.isfile('./transmission/ed_transmission.csv'):
@@ -220,6 +226,8 @@ if os.path.isfile('pedigree.txt'):
 ### excavator2
     family_ex = family(df_excavator2, pedigree)
     ol_ex = overlap(family_ex, df_excavator2)
+    ol_ex.drop_duplicates(subset=['start', 'end'],\
+        keep='first', inplace=True)
     final_ex = final(ol_ex)
 
     if os.path.isfile('./transmission/ex_transmission.csv'):
@@ -235,6 +243,8 @@ if os.path.isfile('pedigree.txt'):
 ### GATK
     family_gatk = family(df_gatk, pedigree)
     ol_gatk = overlap(family_gatk, df_gatk)
+    ol_gatk.drop_duplicates(subset=['start', 'end'],\
+        keep='first', inplace=True)
     final_gatk = final(ol_gatk)
 
     if os.path.isfile('./transmission/gatk_transmission.csv'):
@@ -251,6 +261,8 @@ if os.path.isfile('pedigree.txt'):
 ### HomeMade
     family_hm = family(df_hm, pedigree)
     ol_hm = overlap(family_hm, df_hm)
+    ol_hm.drop_duplicates(subset=['start', 'end'],\
+        keep='first', inplace=True)
     final_hm = final(ol_hm)
 
     if os.path.isfile('./transmission/hm_transmission.csv'):
