@@ -107,6 +107,8 @@ def chevauchement_run(sorted_sample_cnv):
             
             max_start = max(int(prev_cnv.start), int(curr_cnv.start))
             min_end = min(int(prev_cnv.end), int(curr_cnv.end)) 
+            min_start = min(int(prev_cnv.start), int(curr_cnv.start))
+            max_end = max(int(prev_cnv.end), int(curr_cnv.end))
             print('\nmax start = {}'.format(max_start))
             print('min end = {}'.format(min_end))
             
@@ -122,10 +124,10 @@ def chevauchement_run(sorted_sample_cnv):
 
                 sample_list.append(prev_cnv.sample)
                 contig_list.append(prev_cnv.contig)
-                start_list.append(max_start)
-                end_list.append(min_end)
+                start_list.append(min_start)
+                end_list.append(max_end)
                 sex_list.append(prev_cnv.sex)
-                size_list.append(min_end - max_start)
+                size_list.append(max_end - min_start)
                 effect_list.append(prev_cnv.effect)
                 log2copy_list.append(prev_cnv.log2copy_ratio)
                 copynumber_list.append(prev_cnv.copynumber)
