@@ -10,6 +10,9 @@ if os.path.isfile('cnv_with_frequences.txt'):
     print('Previous results file removed.')
 
 df_prev = pandas.read_csv('interval_run_results.txt', sep='\t', index_col=False)
+df_prev.drop_duplicates(subset=['start', 'end', 'sample'],\
+        keep='first', inplace=True)
+
 df_prev['sample'].astype('str')
 df_prev['start'].astype('str').astype('int')
 df_prev['end'].astype('str').astype('int')
