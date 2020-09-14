@@ -4,7 +4,9 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda activate annot_env
 
 echo ""
+echo "*******************"
 echo "annotation.sh start"
+echo "*******************"
 echo ""
 
 rm -Rf annovar_output

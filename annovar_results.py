@@ -3,7 +3,9 @@
 import os
 import pandas
 
-print('\nAnnotation results program openning.\n')
+print("\n************************************")
+print("Annotation results program openning.")
+print("************************************\n")
 
 df = pandas.read_csv('annotation.hg38_multianno.txt', sep='\t', index_col=None)
 

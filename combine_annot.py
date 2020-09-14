@@ -3,6 +3,16 @@
 import pandas
 import os
 from subprocess import Popen, PIPE
+import pathlib
+
+print("\n************************************")
+print("Full annots program openning.")
+print("************************************\n")
+
+
+DGV = "/media/Data1/jbogoin/ref/dgv/DGV_hg38_variants_2020-02-25_light.bed.gz"
+path = os.getcwd()
+print(path)
 
 def tabix_query(filename, chrom, start, end):
 	"""Call tabix and generate an array of strings for each line it returns."""
@@ -11,10 +21,6 @@ def tabix_query(filename, chrom, start, end):
 	for line in process.stdout:
 		yield line.strip().split()
 
-
-print("\nAnnots program openning.\n")
-
-DGV = "/media/Data1/jbogoin/ref/dgv/DGV_hg38_variants_2020-02-25_light.bed.gz"
 
 ###########
 # CLINVAR #
@@ -64,8 +70,8 @@ uniq.rename(columns={'gene': 'hg38_gene'}, inplace=True)
 ###########
 # Annovar #
 ###########
-
-annovar = pandas.read_csv('annovar_output/annotation_results.csv',index_col=None, header=[0])
+annovar = pandas.read_csv( (path + '/annovar_output/annotation_results.csv'),\
+	index_col=None, header=[0])
 annovar['genes'] = annovar['genes'].astype('str')
 annovar['genes'] = annovar['genes'].str.split(pat=';', expand=False)
 annovar.rename(columns={'genes': 'annovar_genes'}, inplace=True)
@@ -180,4 +186,4 @@ if os.path.isfile('final_cnv_tab.csv'):
 annovar.to_csv('final_cnv_tab.csv', sep='\t', index=False)
 print("final_cnv_tab.csv generated.\n")
 
-print("Annots program job done!\n")
+print("Full annots program job done!\n")

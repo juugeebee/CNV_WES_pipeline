@@ -11,7 +11,7 @@ if os.path.isfile('cnvkit_results.csv'):
 
 li = []
 
-path = '.'
+path = os.getcwd()
 folders = os.listdir(path)
 
 for folder in folders:
