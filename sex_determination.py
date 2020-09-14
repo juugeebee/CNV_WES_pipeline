@@ -10,7 +10,9 @@ sample_l = []
 sex_d = {}
 bams = glob.glob("*.dedup.bam")
 
-print("\nSex determination script openning.\n")
+print("\n************************************")
+print("Sex determination script openning.")
+print("************************************\n")
 
 for i in bams:
     

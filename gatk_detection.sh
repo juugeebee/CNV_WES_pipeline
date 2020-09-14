@@ -16,7 +16,9 @@ PLOIDY_AUTO="/media/Data1/jbogoin/ref/contig_ploidy_priors/ploidy_priors_table_a
 PLOIDY_XY="/media/Data1/jbogoin/ref/contig_ploidy_priors/ploidy_priors_table_XY.tsv"
 
 echo ""
+echo "*************************"
 echo "GATK4 CNV DETECTION start"
+echo "*************************"
 echo ""
 
 rm -rf gatkcnv_output

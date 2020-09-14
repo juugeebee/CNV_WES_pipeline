@@ -4,7 +4,9 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda activate exomedepth_env
 
 echo ""
-echo "ExomeDepth CNV DETECTION start"
+echo "*******************************"
+echo "ExomeDepth CNV DETECTION start."
+echo "*******************************"
 echo ""
 
 rm -Rf exomedepth_output

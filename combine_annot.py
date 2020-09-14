@@ -9,7 +9,6 @@ print("\n************************************")
 print("Full annots program openning.")
 print("************************************\n")
 
-
 DGV = "/media/Data1/jbogoin/ref/dgv/DGV_hg38_variants_2020-02-25_light.bed.gz"
 path = os.getcwd()
 print(path)

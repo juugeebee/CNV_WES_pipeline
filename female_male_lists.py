@@ -4,7 +4,9 @@
 
 import os
 
-print("\nfemale_male_lists.py program openning.\n")
+print("\n************************************")
+print("female_male_lists.py program openning.")
+print("************************************\n")
 
 if os.path.isfile("female_list.txt"):
     print("Listes deja generees. Pas de changement.\n")
