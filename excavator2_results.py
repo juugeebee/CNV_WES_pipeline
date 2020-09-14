@@ -50,11 +50,11 @@ frame.rename(columns={'End': 'end'}, inplace=True)
 frame.rename(columns={'Segment': 'log2copy_ratio'}, inplace=True)
 frame.rename(columns={'CNF': 'cnv_ratio'}, inplace=True)
 
-frame.query('log2copy_ratio>0.585 or log2copy_ratio<-1', inplace=True)
+frame.query('log2copy_ratio>0.4 or log2copy_ratio<-0.7', inplace=True)
 
 frame['effect']='i'
-frame.loc[frame.log2copy_ratio>0.585, 'effect'] = "duplication"
-frame.loc[frame.log2copy_ratio<-1, 'effect'] = "deletion"
+frame.loc[frame.log2copy_ratio>0.4, 'effect'] = "duplication"
+frame.loc[frame.log2copy_ratio<-0.7, 'effect'] = "deletion"
 
 del frame['Call']
 del frame['ProbCall']

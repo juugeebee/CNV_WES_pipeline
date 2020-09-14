@@ -3,7 +3,9 @@
 import os
 import pandas
 
-print("\nFrequences program openning.\n")
+print("\n************************************")
+print("Frequences program openning.")
+print("************************************\n")
 
 if os.path.isfile('cnv_with_frequences.txt'):
     os.remove('cnv_with_frequences.txt')
@@ -26,8 +28,8 @@ df_prev['TF'] = (df_prev['effect'] == df_curr['effect'])\
         & (df_prev['sample'] != df_curr['sample'])
 
 df_prev['frequences_in_run'] = 1
-freq_list = df_prev['frequences_in_run'].tolist()
 
+freq_list = df_prev['frequences_in_run'].tolist()
 tf_list = df_prev['TF'].tolist()
 
 comp = 0

@@ -45,13 +45,14 @@ concat.rename(columns={'mean': 'log2copy_ratio'}, inplace=True)
 total = concat.shape[0]
 
 concat['log2copy_ratio'] = concat['log2copy_ratio'].astype('str').astype('float')
-concat.query('log2copy_ratio>0.585 or log2copy_ratio<-1', inplace=True)
+
+concat.query('log2copy_ratio>0.4 or log2copy_ratio<-0.7', inplace=True)
+
 concat['cnv_ratio'] = concat['log2copy_ratio']**2
 
 concat['effect'] = 'i'
-
-concat.loc[concat.log2copy_ratio>0.585, 'effect'] = "duplication"
-concat.loc[concat.log2copy_ratio<-1, 'effect'] = "deletion"
+concat.loc[concat.log2copy_ratio>0.4, 'effect'] = "duplication"
+concat.loc[concat.log2copy_ratio<-0.7, 'effect'] = "deletion"
 
 df_sex = pandas.read_csv('../samples.txt', header = [0], sep="\t", index_col=None)
 

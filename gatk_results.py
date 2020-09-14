@@ -88,6 +88,8 @@ df_sex = pd.read_csv('../samples.txt', header = [0], sep="\t", index_col=None)
 
 frame = pd.merge(concat, df_sex, left_on='sample', right_on='sample')
 
+print(frame)
+
 total = frame.shape[0] - 12
 
 frame['end'] = frame['end'].str[4:]
@@ -105,9 +107,9 @@ del frame['ALT']
 frame.to_csv('gatk_transitional.csv', index=False)
 print("gatk_transitional.csv generated.\n")
 
-frame.loc[frame.CN<=1, 'effect'] = "deletion"
+frame.loc[frame.CN<2, 'effect'] = "deletion"
 frame.loc[frame.CN>2, 'effect'] = "duplication"
-frame.query('CN>2 or CN<1', inplace=True)
+frame.query('CN>2 or CN<2', inplace=True)
 
 cols = ['sample', 'sex', 'contig', 'start', 'end', 'CN', 'effect']
 frame = frame[cols]

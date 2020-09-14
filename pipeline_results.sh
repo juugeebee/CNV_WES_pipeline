@@ -4,7 +4,10 @@
 
 echo ""
 echo "pipeline_results.sh start"
-echo ""
+
+
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate results_cnv
 
 # # # results summary
 python ~/CNV_WES_pipeline/cnv_results.py
@@ -13,24 +16,30 @@ python ~/CNV_WES_pipeline/cnv_interval_objet_run.py
 
 python ~/CNV_WES_pipeline/frequences.py
 
-# annotations
+conda deactivate
 
-# annovar
- conda activate annot_env
+# # annotations
 
-bash ~/CNV_WES_pipeline/annovar.sh
+# # annovar
+#  conda activate annot_env
 
-conda activate results_cnv
+# bash ~/CNV_WES_pipeline/annovar.sh
 
-cd annovar_output
-python ~/CNV_WES_pipeline/annovar_results.py
+# conda deactivate
 
-# ClinVar
-# In_gene
-# DGV_count
+# conda activate results_cnv
 
-cd $DATA
-python ~/CNV_WES_pipeline/combine_annot.py
+# cd annovar_output
+# python ~/CNV_WES_pipeline/annovar_results.py
+
+# # ClinVar
+# # In_gene
+# # DGV_count
+
+# cd $DATA
+# python ~/CNV_WES_pipeline/combine_annot.py
+
+# conda deactivate
 
 echo ""
 echo "pipeline_results.sh job done!"

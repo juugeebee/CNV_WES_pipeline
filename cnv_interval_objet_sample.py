@@ -100,8 +100,8 @@ def chevauchement_sample(sorted_sample_cnv):
         if (curr_cnv.contig == prev_cnv.contig)\
             and (curr_cnv.effect == prev_cnv.effect)\
             and (curr_cnv.sample == prev_cnv.sample)\
-            and (int(curr_cnv.start) <= int(prev_cnv.end)) \
-            and (int(curr_cnv.end) >= int(prev_cnv.start)):
+            and (int(curr_cnv.start) <= int(prev_cnv.end)): \
+            #and (int(curr_cnv.end) >= int(prev_cnv.start)):
 
             min_start = min(int(prev_cnv.start), int(curr_cnv.start))
             max_end = max(int(prev_cnv.end), int(curr_cnv.end)) 
@@ -132,7 +132,9 @@ def chevauchement_sample(sorted_sample_cnv):
 
 ###### PROGRAMME PRINCIPAL ######
 
-print("\nSample intervals checking program openning.\n")
+print("\n************************************")
+print("Sample intervals checking program openning.")
+print("************************************\n")
 
 print('-START Generation des cnv...')
 cnv = Cnv.read_results('cnv_results.csv')
@@ -141,12 +143,12 @@ print('-END Generation des cnv: {} cnv generes'.format(cnv_count))
 
 sample_cnv_list = chevauchement_sample(cnv)
 
-print('{} interval(s) found.'.format(len(sample_cnv_list) - len(cnv)))
+print('{} chevauchement(s) trouves.'.format(len(sample_cnv_list) - len(cnv)))
+print('-{} cnv(s) au final.'.format(len(sample_cnv_list)))
 
 if os.path.isfile('interval_sample_results.txt'):
     os.remove('interval_sample_results.txt')
-    print('Previous results file removed.')
-
+    print('\nPrevious results file removed.')
 
 with open('interval_sample_results.txt', 'w') as results_file:
     
