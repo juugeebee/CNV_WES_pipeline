@@ -10,6 +10,7 @@ print("************************************\n")
 
 if os.path.isfile("female_list.txt"):
     print("Listes deja generees. Pas de changement.\n")
+
 else:
 
     males=[]
@@ -38,7 +39,7 @@ else:
         print("\nATTENTION! Le fichier samples.txt n'est pas present.\n \
         Lancez sex_determination.py et recommencez!\n")
 
-    print("female_male_lists.py job done!\n")
+print("female_male_lists.py job done!\n")
     
 
 
