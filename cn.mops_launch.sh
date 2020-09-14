@@ -4,7 +4,9 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda activate cn.mops_env
 
 echo ""
+echo "***************************"
 echo "cn.mops CNV DETECTION start"
+echo "***************************"
 echo ""
 
 rm -Rf cn.mops_output

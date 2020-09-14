@@ -4,7 +4,9 @@ import os
 import pandas
 import numpy
 
-print("\nExomeDepth CNV results program openning.\n")
+print("\n************************************")
+print("ExomeDepth CNV results program openning.")
+print("************************************\n")
 
 if os.path.isfile('exomedepth_results.csv'):
     os.remove('exomedepth_results.csv')

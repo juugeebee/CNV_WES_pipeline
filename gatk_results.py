@@ -54,7 +54,9 @@ def dataframe(filename, large=True):
 #PRINCIPAL#
 ###########
 
-print("\nGATK CNV results program openning.\n")
+print("\n************************************")
+print("GATK CNV results program openning.")
+print("************************************\n")
 
 if os.path.isfile('gatk_results.csv'):
     os.remove('gatk_results.csv')

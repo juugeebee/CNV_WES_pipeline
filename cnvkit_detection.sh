@@ -11,7 +11,9 @@ TARGET_XY="/media/Data1/jbogoin/ref/gencode/v34_hg38/XY/gencode.v34.basic.annota
 DATA=$PWD
 
 echo ""
+echo "**********************"
 echo "CNVKIT DETECTION start"
+echo "**********************"
 echo ""
 
 rm -Rf cnvkit_output

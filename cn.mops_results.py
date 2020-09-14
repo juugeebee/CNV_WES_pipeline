@@ -3,7 +3,9 @@
 import os
 import pandas
 
-print("\ncn.mops CNV results program openning.\n")
+print("\n************************************")
+print("cn.mops CNV results program openning.")
+print("************************************\n")
 
 if os.path.isfile('cn.mops_results.csv'):
     os.remove('cn.mops_results.csv')

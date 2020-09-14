@@ -10,7 +10,9 @@ TARGETS_ALL="/media/jbogoin/Data1/jbogoin/ref/gencode/v34_hg38/all/gencode.v34.b
 DATA=$PWD
 
 echo ""
+echo "******************************"
 echo "EXCAVATOR2 CNV DETECTION start"
+echo "******************************"
 echo ""
 
 rm -Rf excavator2_output/

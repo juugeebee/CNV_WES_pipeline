@@ -2,7 +2,7 @@
 
 # Author: Julie BOGOIN
 
-exec &> cnv_sortie.log
+#exec &> cnv_sortie.log
 
 echo ""
 echo "++++++++++++++++++++++"

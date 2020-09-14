@@ -3,7 +3,9 @@
 import os
 import pandas
 
-print('\nEXCAVATOR2 CNV results program openning.\n')
+print("\n************************************")
+print("EXCAVATOR2 CNV results program openning.")
+print("************************************\n")
 
 if os.path.isfile('excavator2_results.csv'):
     os.remove('excavator2_results.csv')

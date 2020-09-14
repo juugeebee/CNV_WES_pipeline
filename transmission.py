@@ -101,7 +101,11 @@ def final (concat):
 
 #### MAIN ####
 ##############
-print("\nTransmission program openning.\n")
+
+print("\n************************************")
+print("Transmission program openning.")
+print("************************************\n")
+
 
 path = "."
 dirs = os.listdir(path)
