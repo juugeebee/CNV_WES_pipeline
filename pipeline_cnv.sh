@@ -5,7 +5,11 @@
 exec &> cnv_sortie.log
 
 echo ""
-echo "pipeline_cnv.sh start"
+echo "++++++++++++++++++++++"
+echo "++++++++++++++++++++++"
+echo "pipeline_cnv.sh start."
+echo "++++++++++++++++++++++"
+echo "++++++++++++++++++++++"
 echo ""
 
 DATA=$PWD
@@ -97,5 +101,9 @@ python ~/CNV_WES_pipeline/combine_annot.py
 conda deactivate
 
 echo ""
+echo "+++++++++++++++++++++++++"
+echo "+++++++++++++++++++++++++"
 echo "pipeline_cnv.sh job done!"
+echo "+++++++++++++++++++++++++"
+echo "+++++++++++++++++++++++++"
 echo ""
