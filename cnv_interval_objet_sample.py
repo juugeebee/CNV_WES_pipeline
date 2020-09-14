@@ -70,7 +70,8 @@ class Cnv:
         df.drop_duplicates(keep='first', inplace=True)
 
         # Trier par effect, sample, contig et position start.
-        df.sort_values(by=['effect','sample', 'contig', 'start'], inplace=True)
+        df.sort_values(by=['effect','sample', 'contig', 'start', 'end'], inplace=True, \
+            ascending = [True, True, True, True, False], kind = 'mergesort')
 
         # Ajouter une colonne 'size'.
         df['size'] = df['end'] - df['start']
@@ -100,8 +101,8 @@ def chevauchement_sample(sorted_sample_cnv):
         if (curr_cnv.contig == prev_cnv.contig)\
             and (curr_cnv.effect == prev_cnv.effect)\
             and (curr_cnv.sample == prev_cnv.sample)\
-            and (int(curr_cnv.start) <= int(prev_cnv.end)): \
-            #and (int(curr_cnv.end) >= int(prev_cnv.start)):
+            and (int(curr_cnv.start) < int(prev_cnv.end)) \
+            and (int(curr_cnv.end) > int(prev_cnv.start)):
 
             min_start = min(int(prev_cnv.start), int(curr_cnv.start))
             max_end = max(int(prev_cnv.end), int(curr_cnv.end)) 
@@ -118,7 +119,8 @@ def chevauchement_sample(sorted_sample_cnv):
             log2copy_ratio = "/".join([str(prev_cnv.log2copy_ratio), str(curr_cnv.log2copy_ratio)])
             targets = "/".join([str(prev_cnv.targets), str(curr_cnv.targets)])
 
-            sample_cnv = Cnv(sample, sex, contig, start, end, size, log2copy_ratio, copynumber, effect,  cnv_tool, targets)
+            sample_cnv = Cnv(sample, sex, contig, start, end, size, \
+                log2copy_ratio, copynumber, effect,  cnv_tool, targets)
             prev_cnv = sample_cnv
             curr_cnv = sorted_sample_cnv[i+1]
                     
