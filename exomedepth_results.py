@@ -4,9 +4,9 @@ import os
 import pandas
 import numpy
 
-print("\n************************************")
+print("\n**************************************")
 print("ExomeDepth CNV results program openning.")
-print("************************************\n")
+print("**************************************\n")
 
 if os.path.isfile('exomedepth_results.csv'):
     os.remove('exomedepth_results.csv')
@@ -24,7 +24,8 @@ for folder in folders:
     for name in files:
     
         if ".csv" in name:
-            df = pandas.read_csv((folder + '/' + name), sep=',',index_col=None, header=[0])
+            df = pandas.read_csv((folder + '/' + name), sep=',',\
+                index_col=None, header=[0])
             df.dropna(how='all')
             sample_name = name.split('.')
             df['sample'] = sample_name[0]
