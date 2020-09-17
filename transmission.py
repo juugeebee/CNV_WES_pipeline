@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # Author: Julie BOGOIN
 
 import os

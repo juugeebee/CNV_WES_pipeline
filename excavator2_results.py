@@ -25,7 +25,7 @@ for folder in folders:
         if "w10K_results." in subfolder:
             subfolder_name = subfolder.split('.')
             sample_name = subfolder_name[1]
-            result_path = folder + '/' + subfolder + '/' + 'Results/' + sample_name + '.sorted' 
+            result_path = folder + '/' + subfolder + '/' + 'Results/' + sample_name 
                 
             files =  os.listdir(result_path)
                     
