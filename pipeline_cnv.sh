@@ -19,61 +19,61 @@ source ~/miniconda3/etc/profile.d/conda.sh
 # sex determination
 conda activate sex_env
 
-python3 ~/CNV_WES_pipeline/sex_determination.py
+python3 ~/SCRIPTS/CNV_WES_pipeline/sex_determination.py
 
 conda deactivate
 
 # generation des listes hommes et femmes
 conda activate results_cnv
 
-python3 ~/CNV_WES_pipeline/female_male_lists.py
+python3 ~/SCRIPTS/CNV_WES_pipeline/female_male_lists.py
 
 conda deactivate
 
 # tools cnv detection
-bash ~/CNV_WES_pipeline/cn.mops_launch.sh
+bash ~/SCRIPTS/CNV_WES_pipeline/cn.mops_launch.sh
 
-bash ~/CNV_WES_pipeline/cnvkit_detection.sh
+bash ~/SCRIPTS/CNV_WES_pipeline/cnvkit_detection.sh
 cd all
-sudo bash ~/CNV_WES_pipeline/cnvkit_call.sh
+sudo bash ~/SCRIPTS/CNV_WES_pipeline/cnvkit_call.sh
 cd cnvkit_output/female
-sudo bash ~/CNV_WES_pipeline/cnvkit_call.sh
+sudo bash ~/SCRIPTS/CNV_WES_pipeline/cnvkit_call.sh
 cd ../male
-sudo bash ~/CNV_WES_pipeline/cnvkit_call.sh
+sudo bash ~/SCRIPTS/CNV_WES_pipeline/cnvkit_call.sh
 cd ../..
 
-bash ~/CNV_WES_pipeline/excavator2_detection.sh
+bash ~/SCRIPTS/CNV_WES_pipeline/excavator2_detection.sh
 
-bash ~/CNV_WES_pipeline/exomedepth_launch.sh
+bash ~/SCRIPTS/CNV_WES_pipeline/exomedepth_launch.sh
 
-bash ~/CNV_WES_pipeline/gatk_detection.sh
+bash ~/SCRIPTS/CNV_WES_pipeline/gatk_detection.sh
 
 # tools results generation
 conda activate results_cnv
 
 cd cn.mops_output
-python ~/CNV_WES_pipeline/cn.mops_results.py
+python ~/SCRIPTS/CNV_WES_pipeline/cn.mops_results.py
 
 cd ../cnvkit_output
-python ~/CNV_WES_pipeline/cnvkit_results.py
+python ~/SCRIPTS/CNV_WES_pipeline/cnvkit_results.py
 
 cd ../excavator2_output
-python ~/CNV_WES_pipeline/excavator2_results.py
+python ~/SCRIPTS/CNV_WES_pipeline/excavator2_results.py
 
 cd ../exomedepth_output
-python ~/CNV_WES_pipeline/exomedepth_results.py
+python ~/SCRIPTS/CNV_WES_pipeline/exomedepth_results.py
 
 cd ../gatkcnv_output
-python ~/CNV_WES_pipeline/gatk_results.py
+python ~/SCRIPTS/CNV_WES_pipeline/gatk_results.py
 
 cd $DATA
 
 # results summary
-python ~/CNV_WES_pipeline/cnv_results.py
-python ~/CNV_WES_pipeline/cnv_interval_objet_sample.py
-python ~/CNV_WES_pipeline/cnv_interval_objet_run.py
+python ~/SCRIPTS/CNV_WES_pipeline/cnv_results.py
+python ~/SCRIPTS/CNV_WES_pipeline/cnv_interval_objet_sample.py
+python ~/SCRIPTS/CNV_WES_pipeline/cnv_interval_objet_run.py
 
-python ~/CNV_WES_pipeline/frequences.py
+python ~/SCRIPTS/CNV_WES_pipeline/frequences.py
 
 conda deactivate
 
@@ -82,21 +82,21 @@ conda deactivate
 # annovar
 conda activate annot_env
 
-bash ~/CNV_WES_pipeline/annovar.sh
+bash ~/SCRIPTS/CNV_WES_pipeline/annovar.sh
 
 conda deactivate
 
 conda activate results_cnv
 
 cd annovar_output
-python ~/CNV_WES_pipeline/annovar_results.py
+python ~/SCRIPTS/CNV_WES_pipeline/annovar_results.py
 
 # ClinVar
 # In_gene
 # DGV_count
 
 cd $DATA
-python ~/CNV_WES_pipeline/combine_annot.py
+python ~/SCRIPTS/CNV_WES_pipeline/combine_annot.py
 
 conda deactivate
 
@@ -107,3 +107,4 @@ echo "pipeline_cnv.sh job done!"
 echo "+++++++++++++++++++++++++"
 echo "+++++++++++++++++++++++++"
 echo ""
+

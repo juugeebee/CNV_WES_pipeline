@@ -17,7 +17,7 @@ mkdir female
 mkdir male
 cd ..
 
-R -q --vanilla < ~/CNV_WES_pipeline/exomedepth_cnv.r
+R -q --vanilla < ~/SCRIPTS/CNV_WES_pipeline/exomedepth_cnv.r
 
 echo ""
 echo "ExomeDepth CNV DETECTION job done!"

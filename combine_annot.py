@@ -153,7 +153,7 @@ for index, row in annovar.iterrows():
 				overlap_size = int(min_end) - int(max_start)
 				pct = (overlap_size) / row['size'] * 100.0
 
-			if pct >= 80.0 and obsG_r != '' and obsL_r != '':
+			if pct >= 75.0 and obsG_r != '' and obsL_r != '':
 
 				if (row['effect'] == "deletion" and int(obsL_r) > 0) or \
 					 (row['effect'] == "duplication" and int(obsG_r) > 0):

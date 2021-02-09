@@ -2,7 +2,7 @@
 
 library(cn.mops)
 
-segments_XY <- read.table(file="/media/Data1/jbogoin/ref/gencode/v34_hg38/XY/gencode.v34.basic.annotation.XY.scratch.bed",
+segments_XY <- read.table(file="/media/Data1/jbogoin/ref/gencode/v36_hg38/XY/gencode.v36.basic.annotation.XY.bed",
                     header=FALSE, sep="\t", as.is=TRUE)
 
 

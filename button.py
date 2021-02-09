@@ -19,10 +19,10 @@ def browse_button():
     folder_path.set(filename)
 
 def pipeline():
-    os.system('sudo bash ~/CNV_WES_pipeline/pipeline_cnv.sh')
+    os.system('sudo bash ~/SCRIPTS/CNV_WES_pipeline/pipeline_cnv.sh')
 
 def resultats():
-    os.system('sudo bash ~/CNV_WES_pipeline/pipeline_results.sh')
+    os.system('sudo bash ~/SCRIPTS/CNV_WES_pipeline/pipeline_results.sh')
 
 # Zone  dans  la  fenêtre  principale  où  on  écrit  un  texte
 pathlabel = tk.Label(racine, text='\nQuel est le run a analyser?\n')

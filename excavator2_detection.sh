@@ -3,9 +3,9 @@
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate excavator2_env
 
-TARGETS_AUTO="/media/jbogoin/Data1/jbogoin/ref/gencode/v34_hg38/autosomes/gencode.v34.basic.annotation_auto.bed"
-TARGETS_XY="/media/Data1/jbogoin/ref/gencode/v34_hg38/XY/gencode.v34.basic.annotation.XY.bed"
-TARGETS_ALL="/media/jbogoin/Data1/jbogoin/ref/gencode/v34_hg38/all/gencode.v34.basic.annotation.CDS.merged.bed"
+TARGETS_AUTO="/media/jbogoin/Data1/jbogoin/ref/gencode/v36_hg38/autosomes/gencode.v36.basic.annotation.autosomes.bed"
+TARGETS_XY="/media/Data1/jbogoin/ref/gencode/v36_hg38/XY/gencode.v36.basic.annotation.XY.bed"
+TARGETS_ALL="/media/jbogoin/Data1/jbogoin/ref/gencode/v34_hg38/all/gencode.v36.basic.annotation.all.bed"
 
 DATA=$PWD
 

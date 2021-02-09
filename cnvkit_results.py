@@ -46,13 +46,13 @@ del frame['gene']
 del frame['depth']
 del frame['weight']
 
-frame.query('log2copy_ratio>0.4 or log2copy_ratio<-0.7', inplace=True)
+frame.query('log2copy_ratio>0.485 or log2copy_ratio<-0.69', inplace=True)
 
 frame['cnv_ratio'] = frame['log2copy_ratio']**2
 
 frame['effect']='i'
-frame.loc[frame.log2copy_ratio>0.4, 'effect'] = "duplication"
-frame.loc[frame.log2copy_ratio<-0.7, 'effect'] = "deletion"
+frame.loc[frame.log2copy_ratio>0.485, 'effect'] = "duplication"
+frame.loc[frame.log2copy_ratio<-0.69, 'effect'] = "deletion"
 
 cols = ['sample', 'sex', 'contig', 'start', 'end', 'cnv_ratio','log2copy_ratio', 'CN', 'effect', 'targets_number']
 frame = frame[cols]
