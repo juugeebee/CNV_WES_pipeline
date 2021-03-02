@@ -16,7 +16,7 @@ def _count_comments(filename):
     fn_open = gzip.open if filename.endswith('.gz') else open
     with fn_open(filename) as fh:
         for line in fh:
-            if line.startswith('#'):
+            if line.startswith(b'#'):
                 comments += 1
             else:
                 break
@@ -30,7 +30,7 @@ def dataframe(filename, large=True):
         comments = _count_comments(filename)
         # Return a simple DataFrame without splitting the INFO column.
         return pd.read_table(filename, compression=comp, skiprows=comments,
-                             names=VCF_HEADER, usecols=range(10))
+                             names=VCF_HEADER, usecols=range(10), encoding = "ISO-8859-1")
 
     # Each column is a list stored as a value in this dict. The keys for this
     # dict are the VCF column names and the keys in the INFO column.
@@ -90,14 +90,14 @@ df_sex = pd.read_csv('../samples.txt', header = [0], sep="\t", index_col=None)
 
 frame = pd.merge(concat, df_sex, left_on='sample', right_on='sample')
 
-print(frame)
-
 total = frame.shape[0] - 12
 
+frame['end'] = frame['end'].astype('str')
 frame['end'] = frame['end'].str[4:]
+frame['CN'] = frame['CN'].astype('str')
 info = frame['CN'].str.split(':', expand=True)
 frame['CN'] = info[1]
-frame['CN'] = frame['CN'].astype('str').astype('int')
+frame['CN'] = frame['CN'].astype('int')
 
 del frame['FILTER']
 del frame['ID']
