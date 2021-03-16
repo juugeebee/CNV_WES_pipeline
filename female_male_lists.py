@@ -35,11 +35,14 @@ else:
             for male in males:
                 male_file.write(male + '\n')
 
+        print("female_male_lists.py job done!\n")
+
     else:
         print("\nATTENTION! Le fichier samples.txt n'est pas present.\n \
         Lancez sex_determination.py et recommencez!\n")
+        exit
 
-print("female_male_lists.py job done!\n")
+
     
 
 
