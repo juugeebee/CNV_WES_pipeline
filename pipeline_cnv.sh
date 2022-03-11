@@ -46,13 +46,17 @@ bash ~/SCRIPTS/CNV_WES_pipeline/excavator2_detection.sh
 
 bash ~/SCRIPTS/CNV_WES_pipeline/exomedepth_launch.sh
 
-bash ~/SCRIPTS/CNV_WES_pipeline/gatk_detection.sh
+rm -Rf gatkcnv_output
+mkdir gatkcnv_output
+bash ~/SCRIPTS/CNV_WES_pipeline/gatk_male.sh
+bash ~/SCRIPTS/CNV_WES_pipeline/gatk_female.sh
+bash ~/SCRIPTS/CNV_WES_pipeline/gatk_all.sh
 
 # tools results generation
 conda activate results_cnv
 
 cd cn.mops_output
-python ~/SCRIPTS/CNV_WES_pipeline/cn.mops_results.py
+sudo python ~/SCRIPTS/CNV_WES_pipeline/cn.mops_results.py
 
 cd ../cnvkit_output
 python ~/SCRIPTS/CNV_WES_pipeline/cnvkit_results.py
